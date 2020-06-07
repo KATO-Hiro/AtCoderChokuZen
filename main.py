@@ -37,7 +37,7 @@ def announce_contest(contest_start_time):
 
     jst = set_jst()
     # FIXME: Typo.
-    contset_name = '【AtCoder hogehoge Contest fuga】開催まで、\n'
+    contest_name = '【AtCoder hogehoge Contest fuga】開催まで、\n'
 
     # See:
     # https://docs.python.org/ja/3/library/datetime.html
@@ -50,7 +50,7 @@ def announce_contest(contest_start_time):
     remain_minutes = (diff.seconds % 3600) // 60
     remain_time = '約 ' + str(remain_hours) + ' 時間 ' + str(remain_minutes) + ' 分です。\n'
 
-    words = note + hash_tags + current_time_jst + contset_name + remain_time
+    words = note + hash_tags + current_time_jst + contest_name + remain_time
     tweet(words)
 
 

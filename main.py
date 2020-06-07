@@ -36,7 +36,6 @@ def announce_contest(contest_start_time):
     hash_tags = '#AtCoder #AtCoderChokuZenBot\n\n'
 
     jst = set_jst()
-    # FIXME: Typo.
     contest_name = '【AtCoder hogehoge Contest fuga】開催まで、\n'
 
     # See:

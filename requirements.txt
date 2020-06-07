@@ -2,4 +2,5 @@ autopep8
 apscheduler
 flake8
 python-dotenv
+pytz
 tweepy

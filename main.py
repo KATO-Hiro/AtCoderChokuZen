@@ -29,12 +29,29 @@ def tick():
     tweet(words)
 
 
+def announce_contest():
+    note = '【注】開発中のBotです。α版の公開までお待ちください。\n\n'
+
+    hash_tags = '#AtCoder #AtCoderChokuZenBot\n\n'
+
+    jst = set_jst()
+    current_time_jst = '現在の時刻(JST): ' + str(datetime.now(jst)) + '\n\n'
+    contset_name = '【AtCoder hogehoge Contest fuga】開催まで、\n'
+
+    hour = 'bar'
+    minute = 'fuga'
+    remain_time = '約 ' + hour + ' 時間 ' + minute + ' 分です。\n'
+
+    words = note + hash_tags + current_time_jst + contset_name + remain_time
+    tweet(words)
+
+
 if __name__ == '__main__':
     jst = set_jst()
 
     scheduler = BlockingScheduler(timezone=jst)
     # TODO: Enable to change start and end date accoring to the constest.
-    scheduler.add_job(tick,
+    scheduler.add_job(announce_contest,
                       'interval',
                       minutes=1,
                       start_date='2020-06-07 15:33:00',

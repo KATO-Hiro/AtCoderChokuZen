@@ -77,12 +77,18 @@ def get_remain_time(contest_start_time, now_jst) -> str:
                                    contest_start_time=contest_start_time,
                                    now_jst=now_jst
                                    )
-    remain_time = '約 ' + str(remain_hours) + ' 時間 ' + str(remain_minutes) + ' 分です。\n'
+    remain_time = '約 ' + str(remain_hours) + ' 時間 ' + str(remain_minutes) + ' 分です。\n\n'
 
     return remain_time
 
 
-def announce_contest(contest_start_time):
+def add_contest_url(url: str) -> str:
+    url = url + '\n'
+
+    return url
+
+
+def announce_contest(contest_start_time, contest_url):
     note = get_note()
     hash_tags = get_hash_tags()
 
@@ -94,7 +100,9 @@ def announce_contest(contest_start_time):
         now_jst=now_jst
     )
 
-    words = note + hash_tags + current_time_jst + contest_name + remain_time
+    contest_url = add_contest_url(contest_url)
+
+    words = note + hash_tags + current_time_jst + contest_name + remain_time + contest_url
     tweet(words)
 
 
@@ -120,8 +128,11 @@ if __name__ == '__main__':
         contest_start_time=contest_start_time_str,
         before_hours=6
     )
+    # TODO: Fetch contest url from AtCoder Official page.
+    contest_url = 'https://atcoder.jp/contests/agc045'
     print('Announce start: ', announce_start_time)
     print('Contest start: ', contest_start_time)
+    print('Contest url: ', contest_url)
 
     jst = set_jst()
     scheduler = BlockingScheduler(timezone=jst)
@@ -131,7 +142,7 @@ if __name__ == '__main__':
                       minutes=1,
                       start_date=remove_timezone(announce_start_time),
                       end_date=remove_timezone(contest_start_time),
-                      args=[contest_start_time]
+                      args=[contest_start_time, contest_url]
                       )
 
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))

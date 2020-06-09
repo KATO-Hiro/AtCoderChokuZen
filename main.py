@@ -30,49 +30,107 @@ def tick():
     tweet(words)
 
 
-def announce_contest(contest_start_time):
-    note = '【注】開発中のBotです。α版の公開までお待ちください。\n\n'
-
-    hash_tags = '#AtCoder #AtCoderChokuZenBot\n\n'
-
-    jst = set_jst()
-    contest_name = '【AtCoder hogehoge Contest fuga】開催まで、\n'
-
-    # See:
-    # https://docs.python.org/ja/3/library/datetime.html
-    now_jst = datetime.fromisoformat(str(datetime.now(jst)))
-    current_time_jst = '現在の時刻(JST): ' + str(now_jst) + '\n\n'
-
-    # TODO: Extract method.
+def calc_time_remaining(contest_start_time, now_jst):
     diff = datetime.fromisoformat(str(contest_start_time)) - now_jst
     remain_hours = diff.seconds // 3600
     remain_minutes = (diff.seconds % 3600) // 60
+
+    return remain_hours, remain_minutes
+
+
+def get_note() -> str:
+    note = '【注】開発中のBotです。α版の公開までお待ちください。\n\n'
+
+    return note
+
+
+def get_hash_tags() -> str:
+    hash_tags = '#AtCoder #AtCoderChokuZenBot\n\n'
+
+    return hash_tags
+
+
+# TODO: Enable to change contest name.
+def get_contest_name() -> str:
+    contest_name = '【AtCoder hogehoge Contest fuga】開催まで、\n'
+
+    return contest_name
+
+
+def get_now_jst():
+    # See:
+    # https://docs.python.org/ja/3/library/datetime.html
+    jst = set_jst()
+    now_jst = datetime.fromisoformat(str(datetime.now(jst)))
+
+    return now_jst
+
+
+def get_current_time_jst(now_jst):
+    current_time_jst = '現在の時刻(JST): ' + str(now_jst) + '\n\n'
+
+    return current_time_jst
+
+
+def get_remain_time(contest_start_time, now_jst) -> str:
+    remain_hours, remain_minutes = calc_time_remaining(
+                                   contest_start_time=contest_start_time,
+                                   now_jst=now_jst
+                                   )
     remain_time = '約 ' + str(remain_hours) + ' 時間 ' + str(remain_minutes) + ' 分です。\n'
+
+    return remain_time
+
+
+def announce_contest(contest_start_time):
+    note = get_note()
+    hash_tags = get_hash_tags()
+
+    now_jst = get_now_jst()
+    current_time_jst = get_current_time_jst(now_jst)
+    contest_name = get_contest_name()
+    remain_time = get_remain_time(
+        contest_start_time=contest_start_time,
+        now_jst=now_jst
+    )
 
     words = note + hash_tags + current_time_jst + contest_name + remain_time
     tweet(words)
 
 
-if __name__ == '__main__':
-    jst = set_jst()
-
-    hours = 6
-    delta = timedelta(hours=hours)
-    contest_start_time = datetime.fromisoformat('2020-06-07 23:45:00+09:00')
+def set_announce_time(contest_start_time: str, before_hours: int):
+    delta = timedelta(hours=before_hours)
+    contest_start_time = datetime.fromisoformat(contest_start_time)
     announce_start_time = contest_start_time - delta
-    print(announce_start_time)
-    print(contest_start_time)
 
+    return contest_start_time, announce_start_time
+
+
+# HACK: Not good solution.
+#        It is necessary to remove '+X:XX',
+#        but builtin function may be existed.
+def remove_timezone(time) -> str:
+    return str(time).split('+')[0]
+
+
+if __name__ == '__main__':
+    # TODO: Fetch contest date from AtCoder Official page.
+    contest_start_time_str = '2020-06-10 13:00:00+09:00'
+    contest_start_time, announce_start_time = set_announce_time(
+        contest_start_time=contest_start_time_str,
+        before_hours=6
+    )
+    print('Announce start: ', announce_start_time)
+    print('Contest start: ', contest_start_time)
+
+    jst = set_jst()
     scheduler = BlockingScheduler(timezone=jst)
     # TODO: Enable to change start and end date accoring to the constest.
-    # FIXME: str(hoge).split('+')[0] is not good solution.
-    #        It is necessary to remove '+9:00',
-    #        but builtin function may be existed.
     scheduler.add_job(announce_contest,
                       'interval',
                       minutes=1,
-                      start_date=str(announce_start_time).split('+')[0],
-                      end_date=str(contest_start_time).split('+')[0],
+                      start_date=remove_timezone(announce_start_time),
+                      end_date=remove_timezone(contest_start_time),
                       args=[contest_start_time]
                       )
 

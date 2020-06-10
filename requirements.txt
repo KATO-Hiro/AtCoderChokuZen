@@ -1,6 +1,8 @@
 autopep8
 apscheduler
+beautifulsoup4
 flake8
 python-dotenv
 pytz
+requests
 tweepy

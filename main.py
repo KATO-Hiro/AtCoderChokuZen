@@ -4,7 +4,7 @@ import os
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 from pytz import timezone
-from Tweepy import use_twitter_api
+from Tweepy import create_twitter_api
 
 from atcoder import fetch_upcoming_contest
 
@@ -19,7 +19,7 @@ def set_jst():
 
 
 def tweet(words):
-    api = use_twitter_api()
+    api = create_twitter_api()
     api.update_status(words)
 
 

@@ -36,3 +36,10 @@ def create_twitter_api():
     logger.info("API was created")
 
     return api
+
+
+def tweet(words):
+    # See:
+    # https://github.com/agronholm/apscheduler/blob/master/examples/schedulers/blocking.py
+    api = create_twitter_api()
+    api.update_status(words)

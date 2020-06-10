@@ -16,9 +16,19 @@ def get_now_jst():
     # See:
     # https://docs.python.org/ja/3/library/datetime.html
     jst = set_jst()
-    now_jst = datetime.fromisoformat(str(datetime.now(jst)))
+    now_without_seconds = remove_seconds_from_datetime(datetime.now(jst))
+    now_jst = datetime.fromisoformat(str(now_without_seconds))
 
     return now_jst
+
+
+# HACK: Hard coding(+09:00) is not good solution.
+# See:
+# https://www.codespeedy.com/remove-seconds-from-the-datetime-in-python/
+def remove_seconds_from_datetime(datetime_now):
+    results = datetime_now.strftime("%Y-%m-%d %H:%M+09:00")
+
+    return results
 
 
 def calc_time_remaining(contest_start_time, now_jst):
@@ -42,3 +52,11 @@ def set_announce_time(contest_start_time: str, before_hours: int):
 #        but builtin function may be existed.
 def remove_timezone(time) -> str:
     return str(time).split('+')[0]
+
+
+def main():
+    print(get_now_jst())
+
+
+if __name__ == '__main__':
+    main()

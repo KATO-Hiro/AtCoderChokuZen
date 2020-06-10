@@ -3,4 +3,5 @@ apscheduler
 flake8
 python-dotenv
 pytz
+requests
 tweepy

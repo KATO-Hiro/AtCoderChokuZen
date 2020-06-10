@@ -6,6 +6,8 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from pytz import timezone
 from Tweepy import use_twitter_api
 
+from atcoder import fetch_upcoming_contest
+
 
 def set_jst():
     # See:
@@ -50,9 +52,8 @@ def get_hash_tags() -> str:
     return hash_tags
 
 
-# TODO: Enable to change contest name.
-def get_contest_name() -> str:
-    contest_name = '【AtCoder hogehoge Contest fuga】開催まで、\n'
+def get_contest_name(contest_name) -> str:
+    contest_name = '【' + contest_name + '】開催まで、\n'
 
     return contest_name
 
@@ -88,19 +89,19 @@ def add_contest_url(url: str) -> str:
     return url
 
 
-def announce_contest(contest_start_time, contest_url):
+def announce_contest(contest):
     note = get_note()
     hash_tags = get_hash_tags()
 
     now_jst = get_now_jst()
     current_time_jst = get_current_time_jst(now_jst)
-    contest_name = get_contest_name()
+    contest_name = get_contest_name(contest.name)
     remain_time = get_remain_time(
-        contest_start_time=contest_start_time,
+        contest_start_time=contest.start_date,
         now_jst=now_jst
     )
 
-    contest_url = add_contest_url(contest_url)
+    contest_url = add_contest_url(contest.url)
 
     words = note + hash_tags + current_time_jst + contest_name + remain_time + contest_url
     tweet(words)
@@ -121,28 +122,28 @@ def remove_timezone(time) -> str:
     return str(time).split('+')[0]
 
 
-if __name__ == '__main__':
+def main():
+    contest = fetch_upcoming_contest()
+
     # TODO: Fetch contest date from AtCoder Official page.
-    contest_start_time_str = '2020-06-10 13:00:00+09:00'
+    contest_start_time_str = '2020-06-10 20:00:00+09:00'
+    # contest_start_time_str = contest.start_date
     contest_start_time, announce_start_time = set_announce_time(
         contest_start_time=contest_start_time_str,
         before_hours=6
     )
-    # TODO: Fetch contest url from AtCoder Official page.
-    contest_url = 'https://atcoder.jp/contests/agc045'
     print('Announce start: ', announce_start_time)
     print('Contest start: ', contest_start_time)
-    print('Contest url: ', contest_url)
+    print('Contest url: ', contest.url)
 
     jst = set_jst()
     scheduler = BlockingScheduler(timezone=jst)
-    # TODO: Enable to change start and end date accoring to the constest.
     scheduler.add_job(announce_contest,
                       'interval',
                       minutes=1,
                       start_date=remove_timezone(announce_start_time),
                       end_date=remove_timezone(contest_start_time),
-                      args=[contest_start_time, contest_url]
+                      args=[contest]
                       )
 
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
@@ -151,3 +152,7 @@ if __name__ == '__main__':
         scheduler.start()
     except (KeyboardInterrupt, SystemExit):
         pass
+
+
+if __name__ == '__main__':
+    main()

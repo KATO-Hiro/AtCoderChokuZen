@@ -2,9 +2,11 @@
 
 ## Description
 
-A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) contest.
+A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) contest. The purpose is to reduce the number of times you forget to join contests.
 
 ***DEMO***
+
+The bot was inspired by [tweets](https://twitter.com/chokudai/status/1267051182154936321).
 
 - Comming soon.
 
@@ -83,7 +85,7 @@ $ docker-compose run --rm web hogehoge
 
 ### Hosting
 
-- Comming Soon.
+- Heroku
 
 ### Optional
 
@@ -92,6 +94,8 @@ $ docker-compose run --rm web hogehoge
 ## Links
 
 [AtCoder](https://atcoder.jp/)
+
+[Original tweet](https://twitter.com/chokudai/status/1267051182154936321)
 
 [Readme Driven Development; RDD](https://qiita.com/b4b4r07/items/c80d53db9a0fd59086ec)
 

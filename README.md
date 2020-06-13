@@ -8,8 +8,6 @@ A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) conte
 
 ***DEMO***
 
-![Bot account](images/account.png)
-
 ![Sample tweet](images/sample_tweet.png)
 
 ## Features

@@ -4,13 +4,13 @@
 
 ## Description
 
-A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) contest. The purpose is to reduce the number of times you forget to join contests.
+A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) contest. The purpose is to reduce the number of times you forget to join contests. The bot was inspired by [tweets](https://twitter.com/chokudai/status/1267051182154936321).
 
 ***DEMO***
 
-The bot was inspired by [tweets](https://twitter.com/chokudai/status/1267051182154936321).
+![Bot account](images/account.png)
 
-- Comming soon.
+![Sample tweet](images/sample_tweet.png)
 
 ## Features
 

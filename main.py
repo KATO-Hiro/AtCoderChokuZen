@@ -17,7 +17,7 @@ def main():
     contest_start_time_str = contest.start_date
     contest_start_time, announce_start_time = set_announce_time(
         contest_start_time=contest_start_time_str,
-        before_hours=12
+        before_hours=24
     )
     print('Contest name: ', contest.name)
     print('Announce start: ', announce_start_time)

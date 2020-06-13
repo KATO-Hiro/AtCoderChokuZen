@@ -1,5 +1,7 @@
 # AtCoderChokuZen
 
+[![Build Status](https://travis-ci.com/KATO-Hiro/AtCoderChokuZen.svg?branch=master)](https://travis-ci.com/github/KATO-Hiro/AtCoderChokuZen)
+
 ## Description
 
 A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) contest. The purpose is to reduce the number of times you forget to join contests.

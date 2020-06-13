@@ -28,7 +28,7 @@ def main():
     scheduler = BlockingScheduler(timezone=jst)
     scheduler.add_job(announce_contest,
                       'interval',
-                      minutes=30,
+                      minutes=1,
                       start_date=remove_timezone(announce_start_time),
                       end_date=remove_timezone(contest_start_time),
                       args=[contest]

@@ -3,7 +3,7 @@ from datetime import timedelta
 from datetime import timezone
 import pytest
 
-from schedule import set_announce_time
+from bot.schedule import set_announce_time
 
 
 class TestSchedule(object):

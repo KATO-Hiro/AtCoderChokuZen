@@ -4,6 +4,7 @@ from datetime import timezone
 import pytest
 
 from bot.schedule import calc_time_remaining
+from bot.schedule import remove_timezone
 from bot.schedule import set_announce_time
 
 
@@ -75,6 +76,16 @@ class TestSchedule(object):
 
         assert contest_start_time == expected_contest_start_time
         assert announce_start_time == expected_announce_start_time
+
+    def test_remove_timezone(self):
+        time_with_timezone = self._generate_datetime_jst(
+            year=2020, month=6, day=14, hour=21, minute=0
+        )
+
+        time_without_timezone = remove_timezone(time_with_timezone)
+        expected = '2020-06-14 21:00:00'
+
+        assert time_without_timezone == expected
 
     def _generate_datetime_jst(self, year, month, day, hour, minute):
         time_difference_hours = 9

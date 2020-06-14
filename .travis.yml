@@ -3,7 +3,7 @@
 language: python
 
 python:
-  - "3.7"
+  - "3.7.7"
   - "3.8"
   - "3.9-dev"  # 3.9 development branch
   - "nightly"  # nightly build
@@ -14,4 +14,10 @@ install:
 
 # command to run tests
 script:
-  - pytest
+  - pytest --cov=./
+
+# See:
+# https://github.com/codecov/example-python/blob/master/.travis.yml
+# Push the results back to codecov
+after_success:
+  - codecov

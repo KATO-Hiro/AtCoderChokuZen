@@ -4,11 +4,18 @@ from datetime import timezone
 import pytest
 
 from bot.schedule import calc_time_remaining
+from bot.schedule import remove_seconds_from_datetime
 from bot.schedule import remove_timezone
 from bot.schedule import set_announce_time
 
 
 class TestSchedule(object):
+
+    def test_remove_seconds_from_datetime(self):
+        dummy_now = datetime(2020, 6, 14, 21, 0, 30)
+        datetime_without_seconds = remove_seconds_from_datetime(dummy_now)
+
+        assert datetime_without_seconds == '2020-06-14 21:00+09:00'
 
     @pytest.mark.parametrize((
         'contest_day', 'contest_hour', 'contest_minute',

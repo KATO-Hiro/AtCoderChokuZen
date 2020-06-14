@@ -1,8 +1,10 @@
 autopep8
 apscheduler
 beautifulsoup4
+codecov
 flake8
 pytest
+pytest-cov
 python-dotenv
 pytz
 requests

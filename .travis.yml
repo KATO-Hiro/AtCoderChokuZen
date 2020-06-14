@@ -14,4 +14,10 @@ install:
 
 # command to run tests
 script:
-  - pytest
+  - pytest --cov=./
+
+# See:
+# https://github.com/codecov/example-python/blob/master/.travis.yml
+# Push the results back to codecov
+after_success:
+  - codecov

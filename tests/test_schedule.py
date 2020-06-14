@@ -64,18 +64,13 @@ class TestSchedule(object):
             before_hours=before_hours
         )
 
-        time_difference_hours = 9
-        minutes = 60
-        seconds = 60
-        time_difference_seconds = time_difference_hours * minutes * seconds
-
-        expected_contest_start_time = datetime(
-            2020, 6, 13, 21, 0,
-            tzinfo=timezone(timedelta(seconds=time_difference_seconds))
+        expected_contest_start_time = self._generate_datetime_jst(
+            year=2020, month=6,
+            day=13, hour=21, minute=0
         )
-        expected_announce_start_time = datetime(
-            2020, 6, announce_start_day, announce_start_hour, 0,
-            tzinfo=timezone(timedelta(seconds=time_difference_seconds))
+        expected_announce_start_time = self._generate_datetime_jst(
+            year=2020, month=6,
+            day=announce_start_day, hour=announce_start_hour, minute=0
         )
 
         assert contest_start_time == expected_contest_start_time

@@ -1,6 +1,7 @@
 # AtCoderChokuZen
 
 [![Build Status](https://travis-ci.com/KATO-Hiro/AtCoderChokuZen.svg?branch=master)](https://travis-ci.com/github/KATO-Hiro/AtCoderChokuZen)
+[![codecov](https://codecov.io/gh/KATO-Hiro/AtCoderChokuZen/branch/master/graph/badge.svg)](https://codecov.io/gh/KATO-Hiro/AtCoderChokuZen)
 [![Issues](https://img.shields.io/github/issues/KATO-Hiro/AtCoderChokuZen)](https://github.com/KATO-Hiro/AtCoderChokuZen/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/KATO-Hiro/AtCoderChokuZen.svg)](https://github.com/KATO-Hiro/AtCoderChokuZen/pulls)
 [![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/KATO-Hiro/AtCoderChokuZen/blob/master/LICENSE)

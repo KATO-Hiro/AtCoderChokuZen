@@ -61,15 +61,28 @@ class TestSchedule(object):
         assert remain_minutes == expected_remain_minutes
 
     @pytest.mark.parametrize((
-        'before_hours', 'announce_start_day', 'announce_start_hour'), [
-        (12, 13, 9),
-        (24, 12, 21)
+        'before_hours',
+        'before_minutes',
+        'announce_start_day',
+        'announce_start_hour',
+        'announce_start_minute',
+        ), [
+        (0, 15, 13, 20, 45),
+        (0, 30, 13, 20, 30),
+        (12, 0, 13, 9, 0),
+        (24, 0, 12, 21, 0)
     ])
-    def test_set_announce_time(self, before_hours,
-                               announce_start_day, announce_start_hour):
+    def test_set_announce_time(self,
+                               before_hours,
+                               before_minutes,
+                               announce_start_day,
+                               announce_start_hour,
+                               announce_start_minute
+                               ):
         contest_start_time, announce_start_time = set_announce_time(
             contest_start_time='2020-06-13 21:00:00+09:00',
-            before_hours=before_hours
+            before_hours=before_hours,
+            before_minutes=before_minutes
         )
 
         expected_contest_start_time = self._generate_datetime_jst(
@@ -78,7 +91,9 @@ class TestSchedule(object):
         )
         expected_announce_start_time = self._generate_datetime_jst(
             year=2020, month=6,
-            day=announce_start_day, hour=announce_start_hour, minute=0
+            day=announce_start_day,
+            hour=announce_start_hour,
+            minute=announce_start_minute
         )
 
         assert contest_start_time == expected_contest_start_time

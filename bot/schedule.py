@@ -39,8 +39,15 @@ def calc_time_remaining(contest_start_time, now_jst):
     return remain_hours, remain_minutes
 
 
-def set_announce_time(contest_start_time: str, before_hours: int):
-    delta = timedelta(hours=before_hours)
+# See:
+# https://realpython.com/lessons/type-hinting/
+def set_announce_time(contest_start_time: str,
+                      before_hours: int,
+                      before_minutes: int = 0
+                      ):
+    delta = timedelta(hours=before_hours,
+                      minutes=before_minutes
+                      )
     contest_start_time = datetime.fromisoformat(contest_start_time)
     announce_start_time = contest_start_time - delta
 

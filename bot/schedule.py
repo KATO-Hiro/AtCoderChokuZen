@@ -33,10 +33,12 @@ def remove_seconds_from_datetime(datetime_now):
 
 def calc_time_remaining(contest_start_time, now_jst):
     diff = datetime.fromisoformat(str(contest_start_time)) - now_jst
+
+    remain_days = diff.days
     remain_hours = diff.seconds // 3600
     remain_minutes = (diff.seconds % 3600) // 60
 
-    return remain_hours, remain_minutes
+    return remain_days, remain_hours, remain_minutes
 
 
 # See:

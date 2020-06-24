@@ -1,4 +1,5 @@
 import os
+import requests
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 
@@ -10,7 +11,10 @@ from schedule import set_announce_time
 
 
 def main():
-    contest = fetch_upcoming_contest()
+    status_code, contest = fetch_upcoming_contest()
+
+    if status_code != requests.codes.ok:
+        exit()
 
     # TODO: Fetch contest date from AtCoder Official page.
     # contest_start_time_str = '2020-06-10 20:00:00+09:00'

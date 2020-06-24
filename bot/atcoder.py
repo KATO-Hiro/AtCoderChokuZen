@@ -1,17 +1,25 @@
 import requests
 from bs4 import BeautifulSoup
 
-from contest import Contest
-
 ATCODER_BASE_URL = 'https://atcoder.jp'
 
 
 def fetch_upcoming_contest():
+    ''' See:
+        https://requests.readthedocs.io/en/master/user/quickstart/#make-a-request
+    '''
     response = _fetch_home_page()
-    upcoming_contests = _parse_upcoming_contests(response)
-    contest_info = _get_upcoming_contest_info(upcoming_contests)
+    status_code = response.status_code
 
-    return contest_info
+    if status_code == requests.codes.ok:
+        # TODO: Implement error handling in the absence of a contest.
+        upcoming_contests = _parse_upcoming_contests(response)
+        contest_info = _get_upcoming_contest_info(upcoming_contests)
+
+        return status_code, contest_info
+    else:
+        # HACK: The below solution is not good?
+        return status_code, None
 
 
 def _fetch_home_page():
@@ -46,6 +54,8 @@ def _get_upcoming_contest_info(upcoming_contests):
         contest url  : /contests/abbreviated_contest_name
         contest name : hogehoge
     '''
+    from contest import Contest
+
     contest_info = upcoming_contests.find_all('a', limit=2)
     name, start_date, url = '', '', ''
 
@@ -77,8 +87,7 @@ def _fix_contest_date_format(date: str) -> str:
 
 
 def main():
-    contest_info = fetch_upcoming_contest()
-    print(contest_info)
+    pass
 
 
 if __name__ == '__main__':

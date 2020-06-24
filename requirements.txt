@@ -5,7 +5,10 @@ codecov
 flake8
 pytest
 pytest-cov
+pytest-vcr
+pytest-watch
 python-dotenv
 pytz
 requests
 tweepy
+vcrpy

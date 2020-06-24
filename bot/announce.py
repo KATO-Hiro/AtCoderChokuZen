@@ -41,12 +41,13 @@ def _get_current_time_jst(now_jst):
 
 
 def _get_remain_time(contest_start_time, now_jst) -> str:
-    remain_hours, remain_minutes = calc_time_remaining(
+    remain_days, remain_hours, remain_minutes = calc_time_remaining(
         contest_start_time=contest_start_time,
         now_jst=now_jst
     )
-    remain_time = '約 ' + str(remain_hours) + ' 時間 ' + \
-        str(remain_minutes) + ' 分です。\n\n'
+    remain_time = '約 ' + str(remain_days) + ' 日 ' \
+        + str(remain_hours) + ' 時間 '  \
+        + str(remain_minutes) + ' 分です。\n\n'
 
     return remain_time
 

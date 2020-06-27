@@ -33,9 +33,11 @@ class TestAtCoder(object):
         upcoming_contests = _parse_upcoming_contests(response)
         contest_info = _get_upcoming_contest_info(upcoming_contests)
 
-        assert contest_info.name == 'AtCoder Beginner Contest 172'
-        assert contest_info.start_date == '2020-06-27 21:00:00+09:00'
-        assert contest_info.url == 'https://atcoder.jp/contests/abc172'
+        assert contest_info.name == 'Introduction to Heuristics Contest'
+        assert contest_info.start_date == '2020-06-28 21:00:00+09:00'
+
+        url = 'https://atcoder.jp/contests/intro-heuristics'
+        assert contest_info.url == url
 
     @pytest.mark.vcr('fixtures/vcr_cassettes/atcoder_upcoming_contest.yaml')
     def test_fetch_contest_info_for_abc172(self, monkeypatch):
@@ -45,14 +47,16 @@ class TestAtCoder(object):
         status_code, contest_info = fetch_upcoming_contest()
 
         assert status_code == requests.codes.ok
-        assert contest_info.name == 'AtCoder Beginner Contest 172'
-        assert contest_info.start_date == '2020-06-27 21:00:00+09:00'
-        assert contest_info.url == 'https://atcoder.jp/contests/abc172'
+        assert contest_info.name == 'Introduction to Heuristics Contest'
+        assert contest_info.start_date == '2020-06-28 21:00:00+09:00'
+
+        url = 'https://atcoder.jp/contests/intro-heuristics'
+        assert contest_info.url == url
 
     def _dummy_contest_info_for_abc172(self):
-        name = 'AtCoder Beginner Contest 172'
-        start_date = '2020-06-27 21:00:00+09:00'
-        url = 'https://atcoder.jp/contests/abc172'
+        name = 'Introduction to Heuristics Contest'
+        start_date = '2020-06-28 21:00:00+09:00'
+        url = 'https://atcoder.jp/contests/intro-heuristics'
 
         contest = Contest(name=name, start_date=start_date, url=url)
 
@@ -77,8 +81,8 @@ class TestAtCoder(object):
         return status_code, None
 
     def test__fix_contest_date_format(self):
-        date = '2020-06-27 21:00:00+0900'
+        date = '2020-06-28 21:00:00+0900'
         actual = _fix_contest_date_format(date)
-        expected = '2020-06-27 21:00:00+09:00'
+        expected = '2020-06-28 21:00:00+09:00'
 
         assert actual == expected

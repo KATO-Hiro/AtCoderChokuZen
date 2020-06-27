@@ -27,7 +27,7 @@ def _fetch_home_page():
         https://requests.readthedocs.io/en/master/
     '''
 
-    HOME_PAGE = ATCODER_BASE_URL + '/home'
+    HOME_PAGE = ATCODER_BASE_URL + '/home?lang=ja'
     response = requests.get(HOME_PAGE)
 
     return response

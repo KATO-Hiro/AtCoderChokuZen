@@ -84,11 +84,3 @@ def _fix_contest_date_format(date: str) -> str:
     fixed_date_format = left + ':' + right
 
     return fixed_date_format
-
-
-def main():
-    pass
-
-
-if __name__ == '__main__':
-    main()

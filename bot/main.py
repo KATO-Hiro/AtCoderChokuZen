@@ -5,7 +5,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 from announce import announce_contest
 from atcoder import fetch_upcoming_contest
-from schedule import remove_timezone
 from schedule import set_jst
 from schedule import set_announce_time
 
@@ -16,54 +15,44 @@ def main():
     if status_code != requests.codes.ok:
         exit()
 
-    # TODO: Fetch contest date from AtCoder Official page.
-    # contest_start_time_str = '2020-06-10 20:00:00+09:00'
+    # contest_start_time_str = '2020-07-01 15:00:00+09:00'
     contest_start_time_str = contest.start_date
-    contest_start_time, first_announce_start_time = set_announce_time(
+    contest_start_time, _ = set_announce_time(
         contest_start_time=contest_start_time_str,
         before_hours=24
     )
-    _, first_announce_end_time = set_announce_time(
-        contest_start_time=contest_start_time_str,
-        before_hours=0,
-        before_minutes=30
-    )
-    _, second_announce_start_time = set_announce_time(
-        contest_start_time=contest_start_time_str,
-        before_hours=0,
-        before_minutes=15
-    )
+
     print('Contest name: ', contest.name)
-    print('Announce start (1st): ', first_announce_start_time)
-    print('Announce end (1st): ', first_announce_end_time)
-    print('Announce start (2nd): ', second_announce_start_time)
     print('Contest start: ', contest_start_time)
     print('Contest url: ', contest.url)
 
     jst = set_jst()
     scheduler = BlockingScheduler(timezone=jst)
-    # Duration1
-    # start   : 24 hours before a contest.
-    # end     : 30 minutes before a contest.
-    # interval: 30 minutes.
-    scheduler.add_job(announce_contest,
-                      'interval',
-                      minutes=30,
-                      start_date=remove_timezone(first_announce_start_time),
-                      end_date=remove_timezone(first_announce_end_time),
-                      args=[contest]
-                      )
-    # Duration2
-    # start   : 15 minutes before a contest.
-    # end     : 0 minutes before a contest.
-    # interval: 10 minutes.
-    scheduler.add_job(announce_contest,
-                      'interval',
-                      minutes=10,
-                      start_date=remove_timezone(second_announce_start_time),
-                      end_date=remove_timezone(contest_start_time),
-                      args=[contest]
-                      )
+
+    remain_hours_minutes = [('before 24 hours 00 minutes: ', 24, 0),
+                            ('before 12 hours 00 minutes: ', 12, 0),
+                            ('before 06 hours 00 minutes: ', 6, 0),
+                            ('before 03 hours 00 minutes: ', 3, 0),
+                            ('before 01 hours 00 minutes: ', 1, 0),
+                            ('before 00 hours 30 minutes: ', 0, 30),
+                            ('before 00 hours 15 minutes: ', 0, 15),
+                            ('before 00 hours 05 minutes: ', 0, 5)
+                            ]
+
+    for description, hours, minutes in remain_hours_minutes:
+        _, before_contest_date = set_announce_time(
+            contest_start_time=contest_start_time_str,
+            before_hours=hours,
+            before_minutes=minutes
+        )
+
+        print(description, before_contest_date)
+
+        scheduler.add_job(announce_contest,
+                          'date',
+                          run_date=before_contest_date,
+                          args=[contest]
+                          )
 
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 

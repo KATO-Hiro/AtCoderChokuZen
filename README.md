@@ -37,7 +37,7 @@ A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) conte
 - Input your email and password if needs.
 
 - Settings for Notifications in Discord.
-  1. Tap "AtCoder ChokuZen Bot" […] and right-click
+  1. Tap "AtCoder ChokuZen Bot" […]
 
   | English | 日本語 |
   |:-------------------------:|:-------------------------:|
@@ -68,7 +68,7 @@ A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) conte
 
   | English | 日本語 |
   |:-------------------------:|:-------------------------:|
-  |![iphone_notifications_en](images/iphone_notifications_en.png)|![iphone_notifications_en](images/iphone_notifications_en.png)|
+  |![iphone_notifications_en](images/iphone_notifications_en.png)|![iphone_notifications_jp](images/iphone_notifications_jp.png)|
 
   3. Tap "Discord"
 

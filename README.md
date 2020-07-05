@@ -16,7 +16,7 @@ A twitter bot that notifies you just before [AtCoder](https://atcoder.jp/) conte
 
 **A sample of push notifications on smart phone screen (スマートフォンにプッシュ通知が届いたときのイメージ画像)**
 
-![Smartphone sample](images/push_notification_sample.png)
+![Smartphone sample](images/push_notification_sample.gif)
 
 | Twitter | Discord |
 |:-------------------------:|:-------------------------:|

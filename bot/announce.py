@@ -23,7 +23,7 @@ def announce_contest(contest):
 
 
 def _get_note() -> str:
-    note = '【注】試験運用中。AtCoder公式ページをご確認ください。\n\n'
+    note = '【注】念のため、AtCoder公式ページをご確認ください。\n\n'
 
     return note
 

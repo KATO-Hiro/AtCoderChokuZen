@@ -35,8 +35,7 @@ def main():
                             ('before 03 hours 00 minutes: ', 3, 0),
                             ('before 01 hours 00 minutes: ', 1, 0),
                             ('before 00 hours 30 minutes: ', 0, 30),
-                            ('before 00 hours 15 minutes: ', 0, 15),
-                            ('before 00 hours 05 minutes: ', 0, 5)
+                            ('before 00 hours 15 minutes: ', 0, 15)
                             ]
 
     for description, hours, minutes in remain_hours_minutes:

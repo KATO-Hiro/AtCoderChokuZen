@@ -14,10 +14,10 @@ def fetch_upcoming_contest():
     if status_code == requests.codes.ok:
         upcoming_contests = _parse_upcoming_contests(response)
 
-    if upcoming_contests:
-        contest_info = _get_upcoming_contest_info(upcoming_contests)
+        if upcoming_contests:
+            contest_info = _get_upcoming_contest_info(upcoming_contests)
 
-        return status_code, contest_info
+            return status_code, contest_info
 
     # HACK: The below solution is not good?
     return status_code, None

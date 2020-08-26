@@ -12,14 +12,15 @@ def fetch_upcoming_contest():
     status_code = response.status_code
 
     if status_code == requests.codes.ok:
-        # TODO: Implement error handling in the absence of a contest.
         upcoming_contests = _parse_upcoming_contests(response)
+
+    if upcoming_contests:
         contest_info = _get_upcoming_contest_info(upcoming_contests)
 
         return status_code, contest_info
-    else:
-        # HACK: The below solution is not good?
-        return status_code, None
+
+    # HACK: The below solution is not good?
+    return status_code, None
 
 
 def _fetch_home_page():

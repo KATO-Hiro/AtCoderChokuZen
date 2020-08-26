@@ -15,6 +15,10 @@ def main():
     if status_code != requests.codes.ok:
         exit()
 
+    if contest is None:
+        print('There is no contest this week.')
+        exit()
+
     # contest_start_time_str = '2020-07-01 15:00:00+09:00'
     contest_start_time_str = contest.start_date
     contest_start_time, _ = set_announce_time(

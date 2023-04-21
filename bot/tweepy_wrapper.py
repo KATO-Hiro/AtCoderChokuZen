@@ -22,8 +22,7 @@ def create_twitter_api():
     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
     api = API(auth,
-              wait_on_rate_limit=True,
-              wait_on_rate_limit_notify=True
+              wait_on_rate_limit=True
               )
 
     try:

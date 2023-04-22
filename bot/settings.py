@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 # https://github.com/theskumar/python-dotenv
 load_dotenv(find_dotenv())
 
+BEARER_TOKEN = os.getenv('BEARER_TOKEN')
 CONSUMER_KEY = os.getenv('CONSUMER_KEY')
 CONSUMER_SECRET = os.getenv('CONSUMER_SECRET')
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
